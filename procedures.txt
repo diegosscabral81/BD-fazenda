@@ -1,0 +1,51 @@
+PCD's
+
+-- 🏡 Fazendas
+CALL Inserir_Fazendas('Fazenda Bela Vista', 'Zona Rural, KM 15', 120.50, 'João Silva');
+CALL Alterar_Fazendas(1, 'Fazenda Boa Vista', 'Zona Rural, KM 20', 150.00, 'João S. Silva');
+CALL Excluir_Fazendas(1);
+
+-- 👨‍🌾 Funcionários
+CALL Inserir_Funcionarios('Maria Souza', 'Gerente', 4200.00, '2023-10-01', 1);
+CALL Alterar_Funcionarios(1, 'Maria S. Souza', 'Gerente de Produção', 4500.00, '2023-10-01', 1);
+CALL Excluir_Funcionarios(1);
+
+-- 🐄 Animais
+CALL Inserir_Animais('Bovino', 'Nelore', 50, 1);
+CALL Alterar_Animais(1, 'Bovino', 'Guzerá', 60, 1);
+CALL Excluir_Animais(1);
+
+-- 🌾 Plantações
+CALL Inserir_Plantacoes('Milho', 40.00, '2024-02-01', '2024-06-30', 1);
+CALL Alterar_Plantacoes(1, 'Soja', 45.00, '2024-01-20', '2024-05-15', 1);
+CALL Excluir_Plantacoes(1);
+
+-- 🚜 Maquinários
+CALL Inserir_Maquinarios('Trator Massey', 'Trator', 2020, 'Bom', 1);
+CALL Alterar_Maquinarios(1, 'Trator Massey Ferguson', 'Trator', 2020, 'Ótimo', 1);
+CALL Excluir_Maquinarios(1);
+
+-- 🧪 Estoque
+CALL Inserir_Estoque('Uréia', 'Fertilizante', 100, 'kg', '2025-03-01', 1);
+CALL Alterar_Estoque(1, 'Uréia', 'Fertilizante', 120, 'kg', '2025-05-01', 1);
+CALL Excluir_Estoque(1);
+
+-- 💰 Vendas
+CALL Inserir_Vendas('Milho', 1000, 1.50, '2024-03-15', 'Cerealista ABC', 1);
+CALL Alterar_Vendas(1, 'Milho', 1200, 1.60, '2024-03-15', 'Cerealista ABC Ltda.', 1);
+CALL Excluir_Vendas(1);
+
+-- 🛒 Compras
+CALL Inserir_Compras('Sementes de Soja', 'Agrocenter', 300, 4500.00, '2024-01-05', 1);
+CALL Alterar_Compras(1, 'Sementes de Soja Premium', 'Agrocenter', 350, 5000.00, '2024-01-10', 1);
+CALL Excluir_Compras(1);
+
+-- 🧰 Manutenções
+CALL Inserir_Manutencoes(1, 'Preventiva', '2024-04-01', 800.00, 'Troca de óleo e filtros');
+CALL Alterar_Manutencoes(1, 1, 'Corretiva', '2024-04-01', 1200.00, 'Reparo no sistema hidráulico');
+CALL Excluir_Manutencoes(1);
+
+-- 🥛 Produção de Leite
+CALL Inserir_Producao_Leite('2024-04-01', 150.75, 1);
+CALL Alterar_Producao_Leite(1, '2024-04-01', 160.00, 1);
+CALL Excluir_Producao_Leite(1);

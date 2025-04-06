@@ -1,0 +1,96 @@
+-- Função 1: Total de Funcionários por Fazenda
+DELIMITER $$
+CREATE FUNCTION total_funcionarios(fazenda_id INT) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+    SELECT COUNT(*) INTO total
+    FROM Funcionarios
+    WHERE id_fazenda = fazenda_id;
+    RETURN total;
+END$$
+DELIMITER ;
+
+-- Função 2: Total de Vendas por Fazenda
+DELIMITER $$
+CREATE FUNCTION total_vendas(fazenda_id INT) RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    DECLARE total DECIMAL(10,2);
+    SELECT SUM(quantidade * preco_unitario) INTO total
+    FROM Vendas
+    WHERE id_fazenda = fazenda_id;
+    RETURN IFNULL(total, 0);
+END$$
+DELIMITER ;
+
+-- Função 3: Estoque de um item específico
+DELIMITER $$
+CREATE FUNCTION estoque_item(nome_item VARCHAR(100)) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE qtd INT;
+    SELECT SUM(quantidade) INTO qtd
+    FROM Estoque
+    WHERE item = nome_item;
+    RETURN IFNULL(qtd, 0);
+END$$
+DELIMITER ;
+
+-- Função 4: Média de leite por fazenda
+DELIMITER $$
+CREATE FUNCTION media_leite(fazenda_id INT) RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    DECLARE media DECIMAL(10,2);
+    SELECT AVG(quantidade_litros) INTO media
+    FROM Producao_Leite
+    WHERE id_fazenda = fazenda_id;
+    RETURN IFNULL(media, 0);
+END$$
+DELIMITER ;
+
+-- Função 5: Verifica se há maquinário antigo
+DELIMITER $$
+CREATE FUNCTION ha_maquinario_antigo(fazenda_id INT, ano_limite INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+    SELECT COUNT(*) INTO total
+    FROM Maquinarios
+    WHERE id_fazenda = fazenda_id AND ano_compra < ano_limite;
+    RETURN total > 0;
+END$$
+DELIMITER ;
+
+
+-- Transações e comandos TCL
+-- Exemplo 1: Transação com SAVEPOINT e ROLLBACK
+START TRANSACTION;
+
+INSERT INTO Estoque (item, tipo, quantidade, unidade, data_validade, id_fazenda)
+VALUES ('Fertilizante', 'Insumo', 100, 'kg', '2025-12-31', 1);
+
+SAVEPOINT ponto1;
+
+INSERT INTO Compras (item, fornecedor, quantidade, preco_total, data_compra, id_fazenda)
+VALUES ('Fertilizante', 'AgroFácil', 100, 1200.00, CURDATE(), 1);
+
+SAVEPOINT ponto2;
+
+-- Rollback para o ponto1
+ROLLBACK TO ponto1;
+
+-- Commit das operações válidas
+COMMIT;
+
+
+-- Exemplo 2: Transação com SET TRANSACTION
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+START TRANSACTION;
+
+UPDATE Estoque
+SET quantidade = quantidade + 50
+WHERE item = 'Fertilizante';
+
+COMMIT;
